@@ -4,16 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Excel Import and Export</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 50px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        #downloadLink {
+            display: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        #downloadLink:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
     <h1>Excel Import and Export</h1>
     
     <!-- Input field and button for importing Excel file -->
+    <label for="fileInput" class="btn">Import Excel</label>
     <input type="file" id="fileInput">
-    <button onclick="importExcel()">Import Excel</button>
     
     <!-- Output field and button for exporting Excel file -->
-    <a id="downloadLink" style="display: none;">Download Excel</a>
+    <a id="downloadLink">Download Excel</a>
 
     <script>
         // Function to handle importing Excel file
@@ -55,10 +102,13 @@
                 const a = document.getElementById('downloadLink');
                 a.href = url;
                 a.download = 'modified_excel.xlsx';
-                a.style.display = 'block';
+                a.style.display = 'inline-block';
             };
             reader.readAsArrayBuffer(file);
         }
+        
+        // Trigger importExcel function when file input changes
+        document.getElementById('fileInput').addEventListener('change', importExcel);
     </script>
 
     <!-- Importing required scripts -->
