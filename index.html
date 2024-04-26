@@ -76,9 +76,10 @@
                 const worksheet = workbook.Sheets[sheetName];
                 const jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1});
 
-                // Perform calculation
-                const modifiedData = jsonData.map(row => {
-                    const value = parseInt(row[0]);
+                // Create modified data array
+                const modifiedData = [['Điểm thực tế', 'Điểm quy đổi']];
+                for (let i = 0; i < jsonData.length; i++) {
+                    const value = parseInt(jsonData[i][0]);
                     let newValue;
                     if (value === 940) {
                         newValue = 1000;
@@ -87,8 +88,8 @@
                     } else {
                         newValue = 1000 - (value - 940) * 3;
                     }
-                    return [value, newValue];
-                });
+                    modifiedData.push([value, newValue]);
+                }
 
                 // Create new Excel workbook with modified data
                 const newWorkbook = XLSX.utils.book_new();
